@@ -7,35 +7,6 @@ require('promise.prototype.finally');
 window.log = console.log.bind(console);
 
 ///////////////////////////////////////////////////////////
-/// socket
-
-//var socket = new io();
-//
-//var models = [
-//  { name: 'Board', handlers: Board },
-//  { name: 'State', handlers: State }
-//];
-//
-//// listen broadcast
-//(function(){
-//
-//  for(var i=models.length; i--; ){
-//    var model = models[i];
-//    for(var key in model.handlers ){
-//      var handler = model.handlers[key];
-//      if( handler.callable ) (function(handler){
-//        var event = [model.name, key].join('.');
-//        //log('listening', event);
-//        socket.on( event , function(data){
-//          handler.apply(null, data.args);
-//        })
-//      })(handler);
-//    }
-//  }
-//
-//})();
-
-///////////////////////////////////////////////////////////
 /// initialization
 
 // build api
@@ -56,14 +27,20 @@ function makeApi(api){
           throw new Error('request without callback');
         var args = Array.prototype.slice.call(arguments,0,len-1);
         var cb = arguments[len-1];
-        $.ajax({
-          type: 'POST',
-          url: api[1],
-          contentType: 'application/json',
-          data: JSON.stringify(args)
-        }).done(function(data){
+        fetch(api[1], {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(args)
+        }).then(function(res){
+          return res.json();
+        }).then(function(data){
           cb.apply(null, data);
-        })
+        }).catch(function(ex){
+          log(ex);
+        });
       }
     }
   }
@@ -76,8 +53,8 @@ function makeApi(api){
 
 fetch('/api.js').then(function(res){
   return res.json();
-}).then(function(){
-  window.api = makeApi();
+}).then(function(j){
+  window.api = makeApi(j);
 }).finally(function(){
   React.render(<Frame />, document.body);
 });

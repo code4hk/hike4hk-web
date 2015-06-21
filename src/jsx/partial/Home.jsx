@@ -62,7 +62,7 @@ var HikingViz = React.createClass({
   //
     function addRouteByUrl(url){
       fetch(url)
-      .then(function (res) {
+      .then(function(res){
         return res.json();
       })
       .then(function(geojson){
