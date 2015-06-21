@@ -41,17 +41,27 @@
                    "coordinates": [options.longitude,options.latitude]
                },
                "properties": {
-                  "title": "Mapbox SF",
-                  "marker-symbol": "harbor"
+                  "title": "【・ヘ・?】",
+                  "marker-symbol": "pitch"
                 }
-           }]
+           },{
+               "type": "Feature",
+               "geometry": {
+                   "type": "Point",
+                   "coordinates": [options.longitude+0.2,options.latitude+0.2]
+               },
+               "properties": {
+                  "title": "【╰(・∇・╰)】",
+                  "marker-symbol": "pitch"
+                }
+           }
+           ]
        }
     });
 
     map.on('style.load', function() {
       map.addSource("markers", sourceObj);
       map.addSource("activity1", activitySource);
-
 
         map.addLayer({
           "id": "markers",
@@ -65,7 +75,9 @@
             "text-anchor": "top"
           },
           "paint": {
-            "text-size": 12
+            // "text-size": 24,
+            // "text-color":"red"
+            "icon-size":2
           }
         });
 
