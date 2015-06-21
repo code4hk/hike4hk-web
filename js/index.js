@@ -20219,13 +20219,10 @@ function makeApi(api){
   }
 }
 
-$.ajax({
-  type: "GET",
-  url: '/api.js'
-}).done(function(json){
+fetch('/api.js').then(function(json){
   window.api = makeApi(json);
-
-  React.render(React.createElement(Frame, null), document.body);
+}).finally(function(){
+    React.render(React.createElement(Frame, null), document.body);
 });
 
 },{"./partial/Frame.jsx":315,"react":311}],314:[function(require,module,exports){
@@ -20447,6 +20444,7 @@ var HikingViz = React.createClass({displayName: "HikingViz",
       center: HKI,
       zoom: 13
     });
+    this.map.scrollWheelZoom.disable();
     //unknown hack
     window.map = this.map;
 
@@ -20455,7 +20453,6 @@ var HikingViz = React.createClass({displayName: "HikingViz",
         // console.log(res.response.features[0].geometry)
 
         // Add this generated geojson object to the map.
-        console.log(this.map);
         L.geoJson(geojson).addTo(this.map);
         // this.map.featureLayer.setGeoJSON(geojson);
 
