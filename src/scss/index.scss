@@ -3,6 +3,7 @@
 * {
   padding: 0;
   margin: 0;
+  transition: 0.4s;
 }
 
 body {
@@ -11,7 +12,7 @@ body {
 
 .container {
   margin: auto;
-  max-width: 800px;
+  max-width: 95%;
 }
 
 .frame {
@@ -22,7 +23,11 @@ body {
   right: 0;
   overflow-y: scroll;
 
-  header {
+  & > header {
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
     background-color: #333;
     padding: 2mm;
     color: #e9e9e9;
@@ -70,6 +75,86 @@ body {
   }
 
   footer {
+    background-color: black;
+  }
+
+}
+
+.profile {
+  position: relative;
+  bottom: 0;
+
+  background: url('/img/sky.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  .content {
+    padding: 3mm;
+    background-color: white;
+    box-shadow: 0 0 1px #777;
+  }
+}
+
+.events {
+  .container {
+    padding-top: 5mm;
+  }
+
+}
+
+.home {
+  .banner {
+    text-align: center;
+    padding: 40mm 0;
+    margin-bottom: 10mm;
+    background: url('/img/mountain.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    background-color: white;
+
+    h1 {
+      color: white;
+      text-shadow: 0 0 100px black;
+      font-size: 4em;
+    }
+  }
+
+  .how-it-works {
+    text-align: center;
+    margin: 10mm 0;
+
+    .steps {
+      width: 100%;
+      display: flex;
+      justify-content: space-around;
+      padding: 20mm;
+
+      .step {
+        header {
+          font-size: 2em;
+        }
+      }
+    }
+
+    h1 {
+      font-size: 4em;
+    }
+  }
+
+  .get-started {
+    text-align: center;
+    background: url('/img/paisley.png') repeat;
+    padding: 20mm 0;
+    margin-top: 10mm;
+
+    h1 {
+      font-size: 3em;
+    }
 
   }
 
@@ -78,7 +163,7 @@ body {
 .sign-in {
   min-width: 400px;
   padding: 5mm;
-  background-color: white;
+  background-color: rgba(255,255,255,.8);
   border-radius: 2px;
   box-shadow: 0 0 1px #333;
 }

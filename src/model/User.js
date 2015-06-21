@@ -50,7 +50,9 @@ var cnt = 0;
 exports.populate = model.makePopulate(tableName, function(callback){
   callback({
     username: 'user' + ++cnt,
-    email: Faker.Internet.email()
+    email: Faker.Internet.email(),
+    height: 150 + Math.floor(40*Math.random()),
+    weight: 45 + Math.floor(40*Math.random())
   })
 });
 

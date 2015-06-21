@@ -30,13 +30,16 @@ exports.listLimit = model.makeListLimit(selectTable, fields, condition);
 exports.get = model.makeGet(tableAlias, selectTable, fields, condition);
 exports.random = model.makeRandom(selectTable, fields, condition);
 
+var cnt = 0;
 exports.populate = model.makePopulate(tableName, function(callback){
   var now = Date.now();
   var day = 1000*60*60*24;
-  var s = now +  Math.floor(now + 30*day*Math.random());
-  var e = s +  Math.floor(s + 30*day*Math.random());
+  var s = now +  Math.floor(30*day*Math.random());
+  var e = s +  Math.floor(30*day*Math.random());
+  var name = 'Event' + ++cnt;
   callback({
-    name: Faker.Lorem.words,
+    name: name,
+    description: Faker.Lorem.paragraphs(),
     start_time: s,
     end_time: e
   });

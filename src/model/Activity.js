@@ -1,4 +1,6 @@
 var model = require('./model.js');
+var db = require('../lib/mysql.js');
+var Log = require('../lib/Log.js');
 var U = require('../lib/server_utility.js');
 var User = require('./User.js');
 
@@ -52,8 +54,17 @@ exports.populate = model.makePopulate(tableName, function(callback){
 });
 
 exports.listByUser = function(userId, callback){
-  var stmt = `select ${fields} from ${selectTable} where a.user_id = ? and ${condition};`;
+  var stmt = `
+    select
+      ${fields}
+    from
+      ${selectTable}
+    where
+      a.user_id = ? and
+      ${condition}
+    order by a.start_time desc;`;
   db.query(stmt, [userId], function(err, res){
+    if(err) Log.e(err);
     callback(err, res);
   })
 };
@@ -67,4 +78,4 @@ exports.list.requestableAsync = true;
 exports.listLimit.requestableAsync = true;
 exports.get.requestableAsync = true;
 
-exports.listByUser.requestable = true;
+exports.listByUser.requestableAsync = true;

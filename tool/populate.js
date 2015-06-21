@@ -29,7 +29,7 @@ function populateActivity(done){
 function populateEvent(done){
   Event.delAll(function(err){
     if(err) Log.e(err);
-    else Event.populate(5, function(err){
+    else Event.populate(8, function(err){
       if(err) Log.e(err);
       else done();
     });

@@ -2,6 +2,8 @@ var React = require('react');
 var If = require('../component/If.jsx');
 var SignIn = require('./SignIn.jsx');
 var Profile = require('./Profile.jsx');
+var Events = require('./Events.jsx');
+var Home = require('./Home.jsx');
 
 var Frame = React.createClass({
   mixins: [],
@@ -12,24 +14,35 @@ var Frame = React.createClass({
   getInitialState: function(){
     return {
       user: null,
-      tab: 'profile'
+      tab: 'home'
     };
   }
   ,
   componentDidMount: function(){
     // testing
-    this._onSignIn('user1', '');
+    //this._onSignIn('user1', '');
   }
   ,
   componentWillUnmount: function(){
+  }
+  ,
+  _tab: function(name){
+    var self = this;
+    return function(){
+      self.setState({ tab: name });
+    }
   }
   ,
   _onSignIn: function(username, password){
     var self = this;
     api.User.getByUsername(username, password, function(err, profile){
       if(err) log(err);
-      else self.setState({ user: profile });
+      else self.setState({ user: profile, tab: 'profile' });
     })
+  }
+  ,
+  _logout: function(){
+    this.setState({ user: null, tab: 'event' });
   }
   ,
   render: function(){
@@ -39,16 +52,21 @@ var Frame = React.createClass({
     return <div className="frame">
       <header>
         <div className="container">
-          <div className="title">Hike4hk</div>
-          <If className="tabs" value={this.state.user !== null}>
-            <div>Profile</div>
-            <div>Events</div>
-            <div>Log out</div>
-          </If>
+          <div className="title" onClick={this._tab('home')} >Hike4hk</div>
+            <div className="tabs">
+              <div onClick={this._tab('event')}>Events</div>
+              <If value={this.state.user !== null} onClick={this._tab('profile')}>Profile</If>
+              <If value={this.state.user !== null} onClick={this._logout} >Log out</If>
+              <If value={this.state.user === null} onClick={this._tab('sign_in')}>Sign In</If>
+            </div>
         </div>
       </header>
 
-      <If className="sign-in-box" value={!login}>
+      <If value={this.state.tab === 'home'}>
+        <Home />
+      </If>
+
+      <If className="sign-in-box" value={this.state.tab === 'sign_in'}>
         <SignIn onSignIn={this._onSignIn} />
       </If>
 
@@ -56,8 +74,8 @@ var Frame = React.createClass({
         <Profile user={this.state.user} />
       </If>
 
-      <If value={login && this.state.tab  === 'event'}>
-
+      <If value={this.state.tab  === 'event'}>
+        <Events />
       </If>
 
       <footer></footer>
