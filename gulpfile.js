@@ -9,9 +9,9 @@ var changed = require('gulp-changed');
 var notify = require('gulp-notify');
 var nodemon = require('gulp-nodemon');
 var sass = require('gulp-sass');
-var browserify = require('browserify');
 var browserSync = require('browser-sync');
 
+var webpack = require('webpack-stream');
 var ghPages = require('gulp-gh-pages');
 
 var DIST = 'www';
@@ -68,6 +68,11 @@ gulp.task('copyStaticFiles', function(){
 });
 
 
+gulp.task('webpack',function () {
+  return gulp.src('src/jsx/index.jsx')
+  .pipe(webpack( require('./webpack.config.js') ))
+  .pipe(gulp.dest(DIST+'/'));
+});
 
 gulp.task('deploy',['build'], function() {
  return gulp.src(DIST+'/**/*')
@@ -81,16 +86,6 @@ gulp.task('scss', function () {
     .pipe(notify('scss: <%= file.relative %>'));
 });
 
-var b = browserify();
-b.transform('reactify'); // use the reactify transform
-b.add('./src/jsx/index.jsx');
-gulp.task('browserify', function(){
-  b.bundle()
-    .on('error', gutil.log)
-    .pipe(source('index.js'))
-    .pipe(gulp.dest(DIST+'/js'))
-    .pipe(notify('browserify: <%= file.relative %>'));
-});
 
 var reload = browserSync.reload;
 gulp.task('browserSync', [], function(){
@@ -112,7 +107,7 @@ gulp.task('start', function () {
   })
 });
 
-gulp.task('build', ['copyStaticFiles', 'scss', 'browserify']);
+gulp.task('build', ['copyStaticFiles', 'scss','webpack']);
 
 gulp.task('clean', function(done){
   var called = false;
@@ -134,7 +129,7 @@ gulp.task('default', ['build', 'start', 'browserSync'], function(){
   gulp.watch('src/scss/**', ['scss']);
 
   // jsx
-  gulp.watch(['src/jsx/**'], [ 'browserify' ]);
+  gulp.watch(['src/jsx/**'], [ 'webpack']);
 
   // browser sync
   gulp.watch('www/css/**', function(event){

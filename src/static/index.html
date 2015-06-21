@@ -19,25 +19,17 @@
       height: 500px
     }
   </style>
-
-  <script src="js/fetch.js"></script>
-  <script src="js/finally.js"></script>
+  <!-- Trust the CDN and hope benefit from cache -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.min.js"></script>
   <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.js'></script>
   <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.0/mapbox.css' rel='stylesheet'/>
-  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.8.1/mapbox-gl.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.8.1/mapbox-gl.css' rel='stylesheet'/>
-
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/json2/20150503/json2.js'></script>
-
-  <!--<script src="/js/jquery.js"></script>-->
-  <!--<script src="/socket.io/socket.io.js"></script>-->
 </head>
 <body>
 <div id="mount">
   <div style="display:flex; justify-content: center;">
     <h4>LOADING...</h4>
   </div>
+    <script src='bundle.js'></script>
 </div>
-<script src="js/index.js"></script>
 </body>
 </html>

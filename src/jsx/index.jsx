@@ -1,6 +1,9 @@
 var React = require('react');
 var Frame = require('./partial/Frame.jsx');
 
+require('whatwg-fetch');
+require('promise.prototype.finally');
+
 window.log = console.log.bind(console);
 
 ///////////////////////////////////////////////////////////
@@ -48,9 +51,10 @@ function makeApi(api){
   }
 }
 
-fetch('/api.js').then(function(res) {
-  return res.json()
+fetch('/api.js').then(function(res){
+  return res.json();
 }).then(function(j){
   window.api = makeApi(j);
+}).finally(function(){
   React.render(<Frame />, document.body);
 });
