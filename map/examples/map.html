@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>React-Leaflet examples</title>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.8.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.8.1/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body { margin:0; padding:0; }
+      #map { position:absolute; top:0; bottom:0; width:100%; }
+      </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <div id='map'></div>
+    <script>
+    var options ={
+      latitude: 22.2855200,
+    longitude: 114.1576900
+    }
+
+    var token = "pk.eyJ1IjoiY29kZTRoayIsImEiOiI2YmMwMTRmNWU4YWE2ZjRkNTI5ZjRhZmI3NzUxNzFhYyJ9.Bs7gyvpywRclaZ6CZ6-s3w";
+    mapboxgl.accessToken = token;
+    var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: '../data/outdoors-v7-customized.json', //stylesheet location
+      center: [options.latitude, options.longitude], // starting position
+      zoom: 9 // starting zoom
+    });
+
+    var activitySource  = new mapboxgl.GeoJSONSource({
+      data:  "http://localhost:8011/map-examples/sample.geojson"
+    })
+    var sourceObj = new mapboxgl.GeoJSONSource({
+       data: {
+           "type": "FeatureCollection",
+           "features": [{
+               "type": "Feature",
+               "geometry": {
+                   "type": "Point",
+                   "coordinates": [options.longitude,options.latitude]
+               },
+               "properties": {
+                  "title": "【・ヘ・?】",
+                  "marker-symbol": "pitch"
+                }
+           },{
+               "type": "Feature",
+               "geometry": {
+                   "type": "Point",
+                   "coordinates": [options.longitude+0.2,options.latitude+0.2]
+               },
+               "properties": {
+                  "title": "【╰(・∇・╰)】",
+                  "marker-symbol": "pitch"
+                }
+           }
+           ]
+       }
+    });
+
+    map.on('style.load', function() {
+      map.addSource("markers", sourceObj);
+      map.addSource("activity1", activitySource);
+
+        map.addLayer({
+          "id": "markers",
+          "type": "symbol",
+          "source": "markers",
+          "layout": {
+            "icon-image": "{marker-symbol}-12",
+            "text-field": "{title}",
+            "text-font": "Open Sans Semibold, Arial Unicode MS Bold",
+            "text-offset": [0, 0.6],
+            "text-anchor": "top"
+          },
+          "paint": {
+            // "text-size": 24,
+            // "text-color":"red"
+            "icon-size":2
+          }
+        });
+
+        map.addLayer({
+          "id": "route",
+          "type": "line",
+          "source": "activity1",
+          "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+          },
+          "paint": {
+            "line-color": "blue",
+            "line-width": 3
+          }
+      });
+
+    });
+
+      //TODO fitBound by route
+    </script>
+    <script src="https://fb.me/react-0.13.1.js"></script>
+    <script src="https://fb.me/JSXTransformer-0.13.1.js"></script>
+  </body>
+</html>
