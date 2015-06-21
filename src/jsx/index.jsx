@@ -71,12 +71,8 @@ function makeApi(api){
   }
 }
 
-$.ajax({
-  type: "GET",
-  url: '/api.js'
-}).done(function(json){
+fetch('/api.js').then(function(json){
   window.api = makeApi(json);
-
-  React.render(<Frame />, document.body);
+}).finally(function(){
+    React.render(<Frame />, document.body);
 });
-
