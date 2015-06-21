@@ -10,6 +10,7 @@ var notify = require('gulp-notify');
 var nodemon = require('gulp-nodemon');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
+var file = require('gulp-file');
 
 var webpack = require('webpack-stream');
 var ghPages = require('gulp-gh-pages');
@@ -65,8 +66,8 @@ gulp.task('copyStaticFiles', function(){
   gulp.src('./src/static/**')
     .pipe(changed(DIST))
     .pipe(gulp.dest(DIST))
-});
 
+});
 
 gulp.task('webpack',function () {
   return gulp.src('src/jsx/index.jsx')
@@ -76,7 +77,10 @@ gulp.task('webpack',function () {
 
 gulp.task('deploy',['build'], function() {
  return gulp.src(DIST+'/**/*')
-   .pipe(ghPages());
+    .pipe(file('CNAME', 'hike.code4.hk'))
+   .pipe(ghPages({
+     cname:"hike.code4.hk"
+   }));
 });
 
 gulp.task('scss', function () {
