@@ -17,6 +17,7 @@ var HikingViz = React.createClass({
       center: HKI,
       zoom: 13
     });
+    this.map.scrollWheelZoom.disable();
     //unknown hack
     window.map = this.map;
 
@@ -25,7 +26,6 @@ var HikingViz = React.createClass({
         // console.log(res.response.features[0].geometry)
 
         // Add this generated geojson object to the map.
-        console.log(this.map);
         L.geoJson(geojson).addTo(this.map);
         // this.map.featureLayer.setGeoJSON(geojson);
 

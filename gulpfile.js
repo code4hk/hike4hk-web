@@ -12,6 +12,8 @@ var sass = require('gulp-sass');
 var browserify = require('browserify');
 var browserSync = require('browser-sync');
 
+
+var DIST = 'www';
 ///////////////////////////////////////////////////////////
 // helper
 
@@ -60,8 +62,8 @@ function rmdir(dir, callback){
 
 gulp.task('copyStaticFiles', function(){
   gulp.src('./src/static/**')
-    .pipe(changed('www'))
-    .pipe(gulp.dest('www'))
+    .pipe(changed(DIST))
+    .pipe(gulp.dest(DIST))
 });
 
 gulp.task('scss', function () {
@@ -78,7 +80,7 @@ gulp.task('browserify', function(){
   b.bundle()
     .on('error', gutil.log)
     .pipe(source('index.js'))
-    .pipe(gulp.dest('www/js'))
+    .pipe(gulp.dest(DIST+'/js'))
     .pipe(notify('browserify: <%= file.relative %>'));
 });
 
@@ -106,7 +108,7 @@ gulp.task('build', ['copyStaticFiles', 'scss', 'browserify']);
 
 gulp.task('clean', function(done){
   var called = false;
-  rmdir('./www', function(err){
+  rmdir(DIST, function(err){
     if(called) return;
     called = true;
     done(err);
@@ -134,4 +136,3 @@ gulp.task('default', ['build', 'start', 'browserSync'], function(){
   gulp.watch(['www/js/**', 'src/routes/api.js']).on('change', reload);
 
 });
-
