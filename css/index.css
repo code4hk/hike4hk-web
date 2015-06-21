@@ -1,0 +1,116 @@
+* {
+  padding: 0;
+  margin: 0;
+  transition: 0.4s; }
+
+body {
+  background-color: #f9f9f9; }
+
+.container {
+  margin: auto;
+  max-width: 95%; }
+
+.frame {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: scroll; }
+  .frame > header {
+    position: relative;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: #333;
+    padding: 2mm;
+    color: #e9e9e9;
+    clear: both; }
+    .frame > header:after {
+      content: "";
+      display: table;
+      clear: both; }
+    .frame > header .title {
+      display: inline-block;
+      font-size: 2em; }
+    .frame > header .tabs {
+      float: right; }
+      .frame > header .tabs > div {
+        display: inline-block;
+        margin: 1mm 3mm;
+        padding: 2mm; }
+        .frame > header .tabs > div:hover {
+          color: white; }
+  .frame .sign-in-box {
+    width: 100%;
+    height: 100%;
+    background: url("/img/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+  .frame footer {
+    background-color: black; }
+
+.profile {
+  position: relative;
+  bottom: 0;
+  background: url("/img/sky.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  .profile .content {
+    padding: 3mm;
+    background-color: white;
+    box-shadow: 0 0 1px #777; }
+
+.events .container {
+  padding-top: 5mm; }
+
+.home .banner {
+  text-align: center;
+  padding: 80mm 0;
+  background: url("/img/mountain.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-color: white; }
+  .home .banner h1 {
+    color: white;
+    text-shadow: 0 0 100px black;
+    font-size: 4em; }
+
+.home .how-it-works {
+  text-align: center;
+  margin: 10mm 0; }
+  .home .how-it-works .steps {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 20mm; }
+    .home .how-it-works .steps .step header {
+      font-size: 2em; }
+    .home .how-it-works .steps .step p {
+      font-size: 1.5em; }
+  .home .how-it-works h1 {
+    font-size: 4em; }
+
+.home .get-started {
+  text-align: center;
+  background: url("/img/paisley.png") repeat;
+  padding: 20mm 0;
+  margin-top: 10mm; }
+  .home .get-started h1 {
+    font-size: 3em; }
+
+.sign-in {
+  min-width: 400px;
+  padding: 5mm;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 2px;
+  box-shadow: 0 0 1px #333; }
