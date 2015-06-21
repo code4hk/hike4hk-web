@@ -5,6 +5,8 @@ var Profile = require('./Profile.jsx');
 var Events = require('./Events.jsx');
 var Home = require('./Home.jsx');
 
+L.mapbox.accessToken = "pk.eyJ1IjoiY29kZTRoayIsImEiOiI2YmMwMTRmNWU4YWE2ZjRkNTI5ZjRhZmI3NzUxNzFhYyJ9.Bs7gyvpywRclaZ6CZ6-s3w";
+
 var Frame = React.createClass({
   mixins: [],
   getDefaultProps: function(){

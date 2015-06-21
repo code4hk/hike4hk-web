@@ -24,7 +24,8 @@ var HikingViz = React.createClass({
     var NT = [22.4370259,114.1616826];
     this.map = L.mapbox.map(this.refs.map.getDOMNode(), MAP, {
       center: HKI,
-      zoom: 13
+      zoom: 13,
+      minZoom:12
     });
     //unknown hack
     window.map = this.map;
