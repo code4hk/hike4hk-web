@@ -40,59 +40,37 @@ var HikingViz = React.createClass({
         iconAnchor:   [22, 70], // point of the icon which will correspond to marker's location
         shadowAnchor: [4, 62],  // the same for the shadow
         popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-    });
+      });
 
-    var marker = L.marker([0, 0], {
-      icon: userIcon
-    }).addTo(this.map);
+      var marker = L.marker([0, 0], {
+        icon: userIcon
+      }).addTo(this.map);
 
-    tick(marker,line);
+      tick(marker,line);
 
-    function tick(marker,line) {
-        // Set the marker to be at the same point as one
-        // of the segments or the line.
-        marker.setLatLng(L.latLng(
-            line.coordinates[j][1],
-            line.coordinates[j][0]));
-        // Move to the next point of the line
-        // until `j` reaches the length of the array.
-        if (++j < line.coordinates.length) setTimeout(tick.bind(this,marker,line), 10);
+      function tick(marker,line) {
+          // Set the marker to be at the same point as one
+          // of the segments or the line.
+          marker.setLatLng(L.latLng(
+              line.coordinates[j][1],
+              line.coordinates[j][0]));
+          // Move to the next point of the line
+          // until `j` reaches the length of the array.
+          if (++j < line.coordinates.length) setTimeout(tick.bind(this,marker,line), 10);
+      }
     }
-  }
-  //
+
     function addRouteByUrl(url){
-      reqwest({
-        url: url
-      })
-      .then(function(res){
-        var geojson = JSON.parse(res.response);
+      fetch(url).then(function(res) {
+        return res.json();
+      }).then(function(geojson){
         addAnimatedRoute(geojson);
       })
     }
-  //
-  //   console.log(this.props.routeSources);
-  //
+
     this.props.routeSources.forEach(function(routeSource){
-          addRouteByUrl(routeSource);
-    })
-
-
-
-  //   reqwest({
-  //     url: this.props.source
-  //   })
-  //   .then(function (res) {
-  //     var lastGist = res[0];
-  //     if (this.isMounted()) {
-  //       this.setState({
-  //         username: lastGist.owner.login,
-  //         lastGistUrl: lastGist.html_url
-  //       });
-  //     }
-  //   // qwery('#content').html(resp.content)
-  // }.bind(this), function (err, msg) {
-  //   // qwery('#errors').html(msg)
-  // })
+      addRouteByUrl(routeSource);
+    });
   },
 
   render: function() {

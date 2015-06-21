@@ -66,7 +66,7 @@ var routes = [];
             path: ['/api', model.namespace, key].join('/'),
             handler: function(req, rep){
               var args = req.payload;
-              //console.log('payload', args);
+              console.log('payload', args);
               if( !Array.isArray(args) ) args = [args];
               args.push(function(){
                 rep(Array.prototype.slice.call(arguments));
@@ -84,7 +84,7 @@ var routes = [];
             path: ['/api', model.namespace, key].join('/'),
             handler: function(req, rep){
               var args = req.payload;
-              //console.log('payload', args);
+              console.log('payload', args);
               var res = handler.apply(null, args);
               rep([res]);
             },
