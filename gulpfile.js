@@ -12,6 +12,7 @@ var sass = require('gulp-sass');
 var browserify = require('browserify');
 var browserSync = require('browser-sync');
 
+var ghPages = require('gulp-gh-pages');
 
 var DIST = 'www';
 ///////////////////////////////////////////////////////////
@@ -64,6 +65,13 @@ gulp.task('copyStaticFiles', function(){
   gulp.src('./src/static/**')
     .pipe(changed(DIST))
     .pipe(gulp.dest(DIST))
+});
+
+
+
+gulp.task('deploy',['build'], function() {
+ return gulp.src(DIST+'/**/*')
+   .pipe(ghPages());
 });
 
 gulp.task('scss', function () {
